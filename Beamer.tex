@@ -1,0 +1,467 @@
+%	Name			:: 	sthlm Beamer Theme  HEAVILY based on the hsrmbeamer theme (Benjamin Weiss)
+%	Author			:: 	Mark Hendry Olson (mark@hendryolson.com)
+%	Created			::	2013-07-31
+%	Updated	    	::	[[April]] 04, 2017 at 16:26:39
+%	Version			:: 	2.0.2
+%	Email			:: 	hendryolson@gmail.com
+%	Website			:: 	http://markolson.se
+%	Twitter			:: 	markolsonse
+%	Instagram		:: 	markolsonse
+%
+%	License			:: 	This file may be distributed and/or modified under the
+%					GNU Public License.
+%
+%	Description		::	This presentation is a demonstration of the sthlm beamer
+%					theme, which is HEAVILY based on the HSRM beamer theme created by Benjamin Weiss
+%					(benjamin.weiss@student.hs-rm.de), which can be found on GitHub
+%					<https://github.com/hsrmbeamertheme/hsrmbeamertheme>.  It also borrows heavily
+%					from the work of Matthias Vogelgesang, (https://bloerg.net) and his Metropolis Mtheme,
+%					<https://github.com/matze/mtheme>.
+%
+%	Theme			::	newPxFont
+%	Options			::	progressbar
+%					::	sectionpages
+%					::	numfooter
+%					::	fullfooter
+%					::	dovaligncolumns
+%					::	protectframetitle
+%					::	greybg
+%					::	cblock
+%					::	minimal
+
+
+%-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+%
+%        LOADING DOCUMENT
+%
+%-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+
+\documentclass[newPxFont,fullfooter,sectionpages, progressbar]{beamer}
+\usepackage[utf8]{inputenc}
+%\usepackage{xeCJK}
+\usetheme{sthlm}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.14}
+\usepackage{cancel}
+\usepackage{graphicx} %use graph format
+\usepackage{epstopdf}
+\usepackage{ragged2e}
+
+
+
+%-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+%
+%	PRESENTATION INFORMATION
+%
+%-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+% \useoutertheme[subsection=false]{miniframes}		% display outline in the top
+
+\title{\centering Bottle Detection in the Wild Using Low-Altitude Unmanned Aerial Vehicles}
+% \subtitle{}
+
+\author{\small Jinwang Wang \and Wei Guo \and Ting Pan \and Huai Yu \and Lin Duan \and \underline{\textbf{Wen Yang}}}
+\institute{Wuhan University(WHU), Wuhan, China}
+\date{2018.07.11 Fusion 2018}
+\hypersetup{pdfauthor = {jwwangchn: jwwangchn@outlook.com},
+pdfsubject = {Beamer},
+pdfkeywords = {Beamer theme, sthlm},
+pdfmoddate= {D:\pdfdate},
+pdfcreator = {}
+}
+
+\begin{document}
+
+%-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+%
+%	TITLE PAGE
+%
+%-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+
+\maketitle
+%-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+%
+%	TABLE OF CONTENTS: OVERVIEW
+%
+%-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+
+\section*{Outline}
+\begin{frame}{Outline}
+% For longer presentations use hideallsubsections option
+\tableofcontents[hideallsubsections]
+\end{frame}
+
+%-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+%
+%	TABLE OF CONTENTS: OVERVIEW
+%
+%-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+
+\section{Introduction}
+
+%-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+%	FRAME: Motivation
+%-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+
+\begin{frame}[c]{Motivation}
+	It's very \cBlue{dangerous} for the sanitation workers who pick up rubbish on the mountain. Can we help them? Yes!
+	\begin{figure}
+		\centering
+		\only<1>{\includegraphics[height=0.5\textheight]{images/sanitation_worker.png}}
+		\only<2>{\includegraphics[height=0.5\textheight]{images/DJI_Phantom4.png}}
+	\end{figure}
+	\begin{center}
+		\only<2>{\large{\cBlue{UAVs can help them!}}}
+	\end{center}
+
+	\note{It's very \cBlue{dangerous} for the sanitation workers who pick up rubbish on the mountain. So can we help them? Yes! We can use UAV to pick bottles.}
+\end{frame}
+
+%-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+%	FRAME: Bottles in Different Dataset
+%-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+
+\begin{frame}[c]{Bottles in Different Dataset}
+	\only<1->{\justifying{In UAV images, the bottles look completely different from the bottles in datasets such as PASCAL VOC, Microsoft COCO, etc.}}
+	\begin{figure}
+		\centering
+		{\includegraphics[height=0.5\textheight]{images/bottle_VOC.png}
+		\hspace{0.1cm}}
+		\only<2>{\includegraphics[height=0.5\textheight]{images/bottle_UAV.png}}
+		% \caption{Bottles in PASCAL VOC dataset}
+	\end{figure}
+\end{frame}
+
+%-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+%
+%	SECTION: COLORS
+%
+%-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+\section{UAV-Bottle Dataset}
+
+%-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+%	FRAME: Dataset Collection
+%-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+\begin{frame}{Dataset Collection}
+	\justifying{We used \cBlue{DJI Phantom 4 Pro} to collect images. The resolution of the captured images are \cBlue{$5472 \times 3078$ pixels}. At the same time, we follow four key suggestions:}
+	\vspace{0.4cm}
+	\begin{columns}
+		\begin{column}{0.48\linewidth}
+			\includegraphics[width=\textwidth]{images/DJI_Phantom4.png}
+		\end{column}
+
+		\begin{column}{0.48\linewidth}
+			\begin{itemize}
+				\item<1-> \small{Wide range of scale and aspect ratios.}
+				\item<2-> \small{Different background scenes.}
+				\item<3-> \small{Different orientation.}
+				\item<4-> \small{As many types of bottles as possible.}
+			\end{itemize}
+		\end{column}
+		
+	\end{columns}
+\end{frame}
+
+%-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+%	FRAME: Dataset Collection
+%-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+
+\begin{frame}{Dataset Collection}
+
+	\cBlue{8 background scenes} are chosen and annotated in our UAV-BD:
+
+	\begin{columns}[c]
+		\begin{column}{0.3\textwidth}
+			\begin{itemize}
+			\item \small{Bushforest land}
+			\item \small{Wasteland}
+			\item \small{Step}
+			\item \small{Forest land}
+			\end{itemize}
+		\end{column}
+
+		\begin{column}{0.3\textwidth}
+			\begin{itemize}
+			\item \small{Flat land}
+			\item \small{Plastic stadium}
+			\item \small{Sand land}
+			\item \small{Grassland}
+			\end{itemize}
+		\end{column}
+	\end{columns}
+	\begin{figure}
+		\centering
+		\includegraphics[width=0.9\textwidth]{images/dataset1.jpg}
+	\end{figure}
+
+\end{frame}
+
+%-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+%	FRAME: Annotation Method
+%-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+
+\begin{frame}{Annotation Method}
+	\justifying{\footnotesize{A common description of horizontal bounding boxes is \cBlue{$(c_x, c_y, h, w)$} , where $(c_x, c_y)$ is the center location, $h$, $w$ are the height and width.}}
+	\begin{figure}
+		\centering
+		\includegraphics[width=0.6\textwidth]{images/HBB.png}
+	\end{figure}
+	\justifying{\footnotesize{However, horizontal bounding box cannot accurately or compactly outline oriented instances such as the bottles in UAV images. So we use  \cBlue{$(c_x, c_y, h, w, \theta)$} to describe bounding boxes, where $\theta$ is the angle from the horizontal direction of the horizontal bounding box.}}
+	\begin{figure}
+		\centering
+		\includegraphics[width=0.6\textwidth]{images/OBB.png}
+	\end{figure}	
+\end{frame}
+
+%-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+%	Dataset Statistics
+%-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+
+\begin{frame}{Dataset Statistics}
+	\justifying{\footnotesize{The size of original image(OI) in UAV-BD is \cBlue{$5472\times 3078$ pixels}, they are too large to be trained for CNN-based algorithms. So we segment each OI into $144$ small subimages(SIs), and the size of SIs is \cBlue{$342\times 342$ pixels}. Images and instances number in UAV-BD are shown in the table below.}}
+	\begin{table}
+		\centering
+		\footnotesize
+		% \caption{\footnotesize{Images and instances number in UAV-BD.}}
+		\label{statistics}
+		\begin{tabular}{@{}ccc|cc@{}}
+			\toprule
+			\textbf{Scenes}     & \textbf{OI} & \textbf{SI} & \textbf{Instances in OI} &\textbf{Instances in SI}  \\ \midrule
+			\cBlue{Bushforest land}       & 230  & 4134  & 1812  & 3047  \\
+			\cBlue{Wasteland}     & 379  & 7598  & 4355  & 5800  \\
+			\cBlue{Step}       & 135  & 2691  & 1325  & 2106  \\
+			\cBlue{Forest land}    & 285  & 5724  & 3702  & 4891  \\
+			\cBlue{Flat land}       & 134  & 2803  & 1538  & 2142  \\
+			\cBlue{Plastic stadium} & 336  & 6807  & 4180  & 4998  \\
+			\cBlue{Sand land}       & 249  & 5570  & 2704  & 4008  \\
+			\cBlue{Grassland}       & 456  & 9029  & 5778  & 7787  \\ \midrule
+			\textbf{Total}      & 2204 & 44356 & 25394 & 34779 \\ \bottomrule
+		\end{tabular}
+	\end{table}
+\end{frame}
+
+%-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+%	Dataset Statistics
+%-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+\begin{frame}{Dataset Statistics}
+
+	\begin{columns}
+		\begin{column}{.48\linewidth}
+			\includegraphics[width=\textwidth]{images/angle_hist.pdf}
+		\end{column}
+
+		\begin{column}{.48\linewidth}
+			\justifying{\cBlue{Angle distribution of UAV-BD.} The angle ranges from $0$ to $180^\circ$. }
+		\end{column}
+	\end{columns}
+\end{frame}
+
+%-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+%	Dataset Statistics
+%-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+\begin{frame}{Dataset Statistics}
+
+	\begin{columns}
+		\begin{column}{.48\linewidth}
+			\includegraphics[width=\textwidth]{images/ratio_hist.pdf}
+		\end{column}
+
+		\begin{column}{.48\linewidth}
+			\justifying{\cBlue{Ratio distribution of UAV-BD.} The ratio ranges from $1.0$ to $5.0$. }
+		\end{column}
+	\end{columns}
+\end{frame}
+
+%-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+%	Dataset Statistics
+%-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+\begin{frame}{Dataset Statistics}
+
+	\begin{columns}
+		\begin{column}{.48\linewidth}
+			\includegraphics[width=\textwidth]{images/size_hist.pdf}
+		\end{column}
+
+		\begin{column}{.48\linewidth}
+			\justifying{\cBlue{Size distribution of UAV-BD.} The size ranges from $0$ to $4000$. }
+		\end{column}
+	\end{columns}
+\end{frame}
+
+
+
+%-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+%	Dataset Statistics
+%-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+\newcommand*{\vcenteredhbox}[1]{#1}
+% \begin{frame}{Dataset Statistics}
+% 	\vcenteredhbox{\includegraphics[width=0.33\textwidth]{images/angle_hist.pdf}}
+%    	\hfill
+% 	\uncover<2->{\vcenteredhbox{\includegraphics[width=0.33\textwidth]{images/ratio_hist.pdf}}}
+% 	\hfill
+% 	\uncover<3->{\vcenteredhbox{\includegraphics[width=0.33\textwidth]{images/size_hist.pdf}}}
+% \end{frame}
+
+%-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+%	SECTION: Baselines and Methods
+%-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+
+\section{Baselines and Methods}\label{baselines}
+
+%-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+%	FRAME: Dataset Split and Baselines
+%-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+\begin{frame}{Dataset Split}
+	\justifying{We randomly select \cBlue{$64\%$}, \cBlue{$16\%$} and \cBlue{$20\%$} of the UAV-BD as the \cBlue{training}, \cBlue{validation} and \cBlue{testing} data. So the whole UAV-BD contains $16,258$ images with $22,211$ instances for training, $4,055$ images with $5,624$ instances for validation and $5,081$ images with $6,944$ instances for testing.}
+\end{frame}
+
+%-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+%	FRAME: Baselines with Horizontal Bounding Boxes
+%-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+\begin{frame}{Baselines with Horizontal Bounding Boxes(HBB)}
+	\justifying{We select \cBlue{Faster R-CNN}, \cBlue{SSD}, \cBlue{YOLOv2} as our baseline for horizontal object detection. The experimental results of HBB prediction are shown in figure below.}
+	\begin{figure}
+		\centering
+		\includegraphics[width=0.6\textwidth]{images/pr_bbox.pdf}
+	\end{figure}
+\end{frame}
+
+%-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+%	FRAME: Baseline with Oriented Bounding Boxes
+%-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+\begin{frame}{Baseline with Oriented Bounding Boxes(OBB)}
+	\justifying{\footnotesize{For oriented object detection, wo modify the original \cBlue{Rotation Region Proposal Network(RRPN)} algorithm to predict properly oriented bounding boxes. RRPN's network structure is shown in figure below.}}
+
+	\begin{figure}
+		\centering
+		\includegraphics[width=0.4\textwidth]{images/scale_ratio_angle.pdf}
+		\par
+		\includegraphics[width=0.85\textwidth]{images/RRPN.pdf}
+	\end{figure}
+\end{frame}
+
+%-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+%	FRAME: Baseline with Oriented Bounding Boxes
+%-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+\begin{frame}{Baseline with Oriented Bounding Boxes(OBB)}
+	The experimental results of OBB prediction are shown in figure below.
+	\begin{figure}
+		\centering
+		\includegraphics[width=0.6\textwidth]{images/pr_rbbox.pdf}
+	\end{figure}
+\end{frame}
+
+%-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+%	FRAME: Experimental Analysis
+%-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+\begin{frame}{Experimental Analysis}
+	\begin{figure}
+		\centering
+		\includegraphics[width=1.0\textwidth]{images/result.png}
+	\end{figure}
+\end{frame}
+
+%-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+%
+%	SECTION: Conclusion and Future Work
+%
+%-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+\section{Conclusion and Future Work}
+
+%-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+%	FRAME: Experimental Analysis
+%-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+\begin{frame}{Conclusion and Future Work}
+	\cBlue{Contribution}
+	\begin{itemize}
+		\item<1-> \justifying{Built a large-scale dataset for bottle detection in UAV images named UAV-BD.}
+		\item<2-> \justifying{Annotated a huge number of well-distributed bottles with oriented bounding boxes.}
+		\item<3-> \justifying{Establish a benchmark for bottle detection.}
+	\end{itemize}
+	\cBlue{Future Work}
+	\begin{itemize}
+		\item<4-> \justifying{We will focus on locating and recycling bottles in the real-world using UAV.}
+	\end{itemize}
+\end{frame}
+
+%-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+%	FRAME: WHERE TO GET DATASET
+%-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+
+\begin{frame}[c]{Get UAV-Bottle Dataset}
+	\vspace{10mm}
+	UAV-Bottle Dataset and Development Kit can be downloaded on Google Drive and Github. \\
+\vspace{1em}
+\begin{center}
+	\large{UAV-Bottle Dataset}
+	\cBlue{\url{https://jwwangchn.github.io/UAV-BD/}}
+
+	\large{Development Kit}
+	\cBlue{\url{https://github.com/jwwangchn/UAV-BD.git}}
+	\vspace{1.5em}
+
+	\begin{figure}
+		\centerline{
+			\includegraphics[width=0.1\textwidth]{GitHub-Mark-120px-plus.png}
+			\hspace{1.5cm}
+			\includegraphics[width=0.1\textwidth]{images/Google_Drive_Logo.png}
+			}
+		% \caption{Hosted on GitHub}
+	\end{figure}
+	
+\end{center}
+\end{frame}
+
+\begin{frame}{References}
+	\begin{thebibliography}{10}
+	\scriptsize
+	\beamertemplatearticlebibitems
+	\bibitem{dota2018}
+	G.-S. Xia, X. Bai, J. Ding, Z. Zhu, S. Belongie, J. Luo, M. Datcu,
+	M. Pelillo, and L. Zhang
+	\newblock Dota: A large-scale dataset for object
+detection in aerial images
+	\newblock IEEE CVPR, 2018
+
+	\beamertemplatearticlebibitems
+	\bibitem{RRPN}
+	L. Liu, Z. Pan, and B. Lei
+	\newblock Learning a rotation invariant detector with
+rotatable bounding box
+	\newblock arXiv preprint arXiv:1711.09405, 2017
+	
+	\beamertemplatearticlebibitems
+	\bibitem{RRPN}
+	L. Liu, Z. Pan, and B. Lei
+	\newblock Faster R-CNN: Towards Real-time
+Object Detection with Region Proposal Networks
+	\newblock Advances in Neural
+Information Processing Systems, 2015
+	
+	\beamertemplatearticlebibitems
+	\bibitem{RRPN}
+	L. Liu, Z. Pan, and B. Lei
+	\newblock SSD: Single Shot Multibox Detector
+	\newblock ECCV, 2016
+	
+	\beamertemplatearticlebibitems
+	\bibitem{RRPN}
+	L. Liu, Z. Pan, and B. Lei
+	\newblock YOLO9000: Better, Faster, Stronger
+	\newblock IEEE CVPR, 2017
+
+  \end{thebibliography}
+\end{frame}
+
+%-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+%	FRAME:
+%-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+\begingroup
+\setbeamercolor{background canvas}{bg=\cnDarkGrey}
+\begin{frame}[plain]
+\vspace{1.4cm}
+\centering{\cGrey{\Huge{Thanks!}}}
+
+\end{frame}
+\endgroup
+
+\end{document}
