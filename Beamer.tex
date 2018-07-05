@@ -28,6 +28,7 @@
 %					::	greybg
 %					::	cblock
 %					::	minimal
+%					::  displaynote
 
 
 %-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
@@ -36,7 +37,7 @@
 %
 %-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 
-\documentclass[newPxFont,fullfooter,sectionpages, progressbar]{beamer}
+\documentclass[newPxFont, fullfooter, sectionpages, progressbar]{beamer}
 \usepackage[utf8]{inputenc}
 %\usepackage{xeCJK}
 \usetheme{sthlm}
@@ -46,6 +47,8 @@
 \usepackage{graphicx} %use graph format
 \usepackage{epstopdf}
 \usepackage{ragged2e}
+\usepackage{hyperref}
+\usepackage[labelformat=empty]{caption}
 
 
 
@@ -60,8 +63,8 @@
 % \subtitle{}
 
 \author{\small Jinwang Wang \and Wei Guo \and Ting Pan \and Huai Yu \and Lin Duan \and \underline{\textbf{Wen Yang}}}
-\institute{Wuhan University(WHU), Wuhan, China}
-\date{2018.07.11 Fusion 2018}
+\institute{Wuhan University, Wuhan, China}
+\date{2018.07.10-2018.07.13 Fusion 2018}
 \hypersetup{pdfauthor = {jwwangchn: jwwangchn@outlook.com},
 pdfsubject = {Beamer},
 pdfkeywords = {Beamer theme, sthlm},
@@ -78,6 +81,9 @@ pdfcreator = {}
 %-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 
 \maketitle
+\note{Good afternoon, everyone. I am Jinwang Wang from Wuhan University. In the next few minutes, I will introduce our ``Bottle Detection in the Wild Using Low-Altitude Unmanned Aerial Vehicles''.}
+
+
 %-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 %
 %	TABLE OF CONTENTS: OVERVIEW
@@ -88,6 +94,7 @@ pdfcreator = {}
 \begin{frame}{Outline}
 % For longer presentations use hideallsubsections option
 \tableofcontents[hideallsubsections]
+\note{I will talk my work through the following sections.}
 \end{frame}
 
 %-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
@@ -97,7 +104,7 @@ pdfcreator = {}
 %-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 
 \section{Introduction}
-
+\note{First, introduction.}
 %-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 %	FRAME: Motivation
 %-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
@@ -106,29 +113,70 @@ pdfcreator = {}
 	It's very \cBlue{dangerous} for the sanitation workers who pick up rubbish on the mountain. Can we help them? Yes!
 	\begin{figure}
 		\centering
-		\only<1>{\includegraphics[height=0.5\textheight]{images/sanitation_worker.png}}
-		\only<2>{\includegraphics[height=0.5\textheight]{images/DJI_Phantom4.png}}
+		\only<1>
+		{
+			\includegraphics[height=0.5\textheight]{images/sanitation_worker.png}
+			\caption*{The sanitation workers on the Huashan Mountain.}
+		}
+		\only<2>{\includegraphics[height=0.6\textheight]{images/illustrater.pdf}}
 	\end{figure}
 	\begin{center}
 		\only<2>{\large{\cBlue{UAVs can help them!}}}
 	\end{center}
 
-	\note{It's very \cBlue{dangerous} for the sanitation workers who pick up rubbish on the mountain. So can we help them? Yes! We can use UAV to pick bottles.}
+	\note{As well we know, It's very \cBlue{dangerous} for the sanitation workers who pick up rubbish on the mountain. So can we help them? Yes! We can use UAV to pick bottles.}
+\end{frame}
+
+%-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+%	FRAME: Pipeline
+%-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+
+\begin{frame}[c]{Pipeline}
+	\begin{figure}
+		\centering
+		\includegraphics[height=0.85\textheight]{images/pipeline.pdf}
+	\end{figure}
+	\note{This work mainly focuses on bottles detection. The whole pipeline is shown as below. After bottles detection, bottles location, grab bottles and recycle is going on.}
 \end{frame}
 
 %-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 %	FRAME: Bottles in Different Dataset
 %-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 
-\begin{frame}[c]{Bottles in Different Dataset}
-	\only<1->{\justifying{In UAV images, the bottles look completely different from the bottles in datasets such as PASCAL VOC, Microsoft COCO, etc.}}
+\begin{frame}[c]{challenges}
+	\only<1-2>{\justifying{In UAV images, the bottles look completely different from the bottles in datasets such as PASCAL VOC, Microsoft COCO, etc.}}
+	\only<3->{\justifying{As to UAV images, detecting bottles exists several unique challenges.}}
 	\begin{figure}
 		\centering
-		{\includegraphics[height=0.5\textheight]{images/bottle_VOC.png}
+		\only<1-2>{\includegraphics[height=0.5\textheight]{images/bottle_VOC.png}
 		\hspace{0.1cm}}
 		\only<2>{\includegraphics[height=0.5\textheight]{images/bottle_UAV.png}}
-		% \caption{Bottles in PASCAL VOC dataset}
 	\end{figure}
+	
+	\only<3->
+	{
+		\begin{columns}
+			\begin{column}{0.4\linewidth}
+				\centering
+				\includegraphics[width=0.9\textwidth]{images/bottle_UAV.png}
+			\end{column}
+	
+			\begin{column}{0.6\linewidth}
+				\begin{itemize}
+					\item<3-> \footnotesize{The size is very small, generally less than $50\times 50$ pixels.}
+					\item<4-> \footnotesize{Backgrounds are very complex.}
+					\item<5-> \footnotesize{Arbitrary orientations.}
+					\item<6-> \footnotesize{Plastic bottles are often transport, increaseing the difficulty of detection.}
+				\end{itemize}
+			\end{column}
+		\end{columns}
+		\vspace{1cm}
+	}
+	
+	
+	\only<1>{\note{In order to detect bottles on UAV, a high quality bottle dataset is needed for training deep learning based detection models. There are exactly bottles in the PASCAL VOC, Microsoft COCO, etc. datasets, why don't we use these bottles to training models?}}
+
+	\only<2>{\note{Because in UAV images, the bottles look completely different from the bottles in PASCAL VOC etc. datasets. As to UAV image, as you can see, detecting bottles exists several unique challenges. First, bottles are very small, generally less than $50\times 50$ pixels; Second, the backgrounds of the bottles are very complex. Third, in contrast to conventional object detection dataset, the bottles in UAV images often appear with arbitrary orientations. Fourth, plastic bottles are often transparent, thus the background will can be seen through the bottles.}}
 \end{frame}
 
 %-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
@@ -137,6 +185,15 @@ pdfcreator = {}
 %
 %-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 \section{UAV-Bottle Dataset}
+
+%-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+%	FRAME: Dataset
+%-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+\begin{frame}{Dataset}
+	\justifying{To build a baseline for bottle detection in UAV images, we establish a large scale bottle detection dataset, we call \cBlue{UAV-Bottle Dataset(UAV-BD)} and benchmark.}
+
+	\note{To build a baseline for bottle detection in UAV images, we establish a large scale bottle detection dataset, we call \cBlue{UAV-Bottle Dataset(UAV-BD)} and benchmark.}
+\end{frame}
 
 %-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 %	FRAME: Dataset Collection
@@ -152,13 +209,14 @@ pdfcreator = {}
 		\begin{column}{0.48\linewidth}
 			\begin{itemize}
 				\item<1-> \small{Wide range of scale and aspect ratios.}
-				\item<2-> \small{Different background scenes.}
+				\item<2-> \small{Different backgrounds.}
 				\item<3-> \small{Different orientation.}
 				\item<4-> \small{As many types of bottles as possible.}
 			\end{itemize}
 		\end{column}
-		
 	\end{columns}
+
+	\note{We use DJI Phantom 4 Pro to collect images. The resolution of the captured images are \cBlue{$5472 \times 3078$ pixels}. At the same time, we follow four key suggestions. First, collecting images including bottles a wide range of scale and aspect ratio. Second, collecting images including different backgrounds. Third, collecting images including bottles different orientations. Third, collecting as many types of bottles as possible.}
 \end{frame}
 
 %-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
@@ -173,7 +231,7 @@ pdfcreator = {}
 		\begin{column}{0.3\textwidth}
 			\begin{itemize}
 			\item \small{Bushforest land}
-			\item \small{Wasteland}
+			\item \small{Waste land}
 			\item \small{Step}
 			\item \small{Forest land}
 			\end{itemize}
@@ -192,7 +250,7 @@ pdfcreator = {}
 		\centering
 		\includegraphics[width=0.9\textwidth]{images/dataset1.jpg}
 	\end{figure}
-
+	\note{Eight background scenes are chosen and annotated in our UAV-BD, including Bush forest land, Waste land, Step, Forest land, Flat land, Plastic stadium, Sand land, Grassland.}
 \end{frame}
 
 %-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
@@ -209,7 +267,8 @@ pdfcreator = {}
 	\begin{figure}
 		\centering
 		\includegraphics[width=0.6\textwidth]{images/OBB.png}
-	\end{figure}	
+	\end{figure}
+	\note{A common description of horizontal bounding boxes is \cBlue{$(c_x, c_y, h, w)$} , where $(c_x, c_y)$ is the center location, $h$, $w$ are the height and width. However, horizontal bounding box cannot accurately or compactly outline oriented instances such as the bottles in UAV images. So we use  \cBlue{$(c_x, c_y, h, w, \theta)$} to describe bounding boxes, where $\theta$ is the angle from the horizontal direction of the horizontal bounding box.}
 \end{frame}
 
 %-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
@@ -237,6 +296,7 @@ pdfcreator = {}
 			\textbf{Total}      & 2204 & 44356 & 25394 & 34779 \\ \bottomrule
 		\end{tabular}
 	\end{table}
+	\note{In our dataset, the size of original image is \cBlue{$5472\times 3078$ pixels}, they are too large to be trained for CNN-based algorithms. So we segment each original image into $144$ small subimages, and the size of subimages is \cBlue{$342\times 342$ pixels}. Images and instances number in UAV-BD are shown in the table below.}
 \end{frame}
 
 %-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
@@ -253,6 +313,7 @@ pdfcreator = {}
 			\justifying{\cBlue{Angle distribution of UAV-BD.} The angle ranges from $0$ to $180^\circ$. }
 		\end{column}
 	\end{columns}
+	\note{For better training the CNN-based algorithms, we counted some dataset's data distribution. Including angle distribution, ratio distribution, size distribution.}
 \end{frame}
 
 %-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
@@ -269,6 +330,7 @@ pdfcreator = {}
 			\justifying{\cBlue{Ratio distribution of UAV-BD.} The ratio ranges from $1.0$ to $5.0$. }
 		\end{column}
 	\end{columns}
+	\note{For better training the CNN-based algorithms, we counted some dataset's data distribution. Including angle distribution, ratio distribution, size distribution.}
 \end{frame}
 
 %-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
@@ -285,6 +347,7 @@ pdfcreator = {}
 			\justifying{\cBlue{Size distribution of UAV-BD.} The size ranges from $0$ to $4000$. }
 		\end{column}
 	\end{columns}
+	\note{For better training the CNN-based algorithms, we counted some dataset's data distribution. Including angle distribution, ratio distribution, size distribution.}
 \end{frame}
 
 
@@ -312,6 +375,7 @@ pdfcreator = {}
 %-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 \begin{frame}{Dataset Split}
 	\justifying{We randomly select \cBlue{$64\%$}, \cBlue{$16\%$} and \cBlue{$20\%$} of the UAV-BD as the \cBlue{training}, \cBlue{validation} and \cBlue{testing} data. So the whole UAV-BD contains $16,258$ images with $22,211$ instances for training, $4,055$ images with $5,624$ instances for validation and $5,081$ images with $6,944$ instances for testing.}
+	\note{We randomly select \cBlue{$64\%$}, \cBlue{$16\%$} and \cBlue{$20\%$} of the UAV-BD as the \cBlue{training}, \cBlue{validation} and \cBlue{testing} data. So the whole UAV-BD contains $16,258$ images with $22,211$ instances for training, $4,055$ images with $5,624$ instances for validation and $5,081$ images with $6,944$ instances for testing.}
 \end{frame}
 
 %-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
@@ -323,6 +387,7 @@ pdfcreator = {}
 		\centering
 		\includegraphics[width=0.6\textwidth]{images/pr_bbox.pdf}
 	\end{figure}
+	\note{We select \cBlue{Faster R-CNN}, \cBlue{SSD}, \cBlue{YOLOv2} as our baseline for horizontal object detection. The experimental results of HBB prediction are shown in figure below.}
 \end{frame}
 
 %-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
@@ -337,6 +402,7 @@ pdfcreator = {}
 		\par
 		\includegraphics[width=0.85\textwidth]{images/RRPN.pdf}
 	\end{figure}
+	\note{For oriented object detection, wo modify the original \cBlue{Rotation Region Proposal Network(RRPN)} algorithm to predict properly oriented bounding boxes. RRPN's network structure is shown in figure below. The scale, ratio and angle settings are came from dataset's distribution.}
 \end{frame}
 
 %-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
@@ -348,6 +414,7 @@ pdfcreator = {}
 		\centering
 		\includegraphics[width=0.6\textwidth]{images/pr_rbbox.pdf}
 	\end{figure}
+	\note{The experimental results of OBB prediction are shown in figure below.}
 \end{frame}
 
 %-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
@@ -356,8 +423,26 @@ pdfcreator = {}
 \begin{frame}{Experimental Analysis}
 	\begin{figure}
 		\centering
-		\includegraphics[width=1.0\textwidth]{images/result.png}
-	\end{figure}
+	 	\includegraphics[width=1.0\textwidth]{images/result.png}
+ 	\end{figure}
+	\note{Bottles detection results in our dataset. As you can see, RRPN's performance is highest.}
+\end{frame}
+
+%-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+%	FRAME: Experimental Analysis
+%-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+\begin{frame}{Some Details}
+	\begin{columns}
+		\begin{column}{.48\linewidth}
+			\includegraphics[height=1.0\textheight]{images/results_room1.pdf}
+		\end{column}
+
+		\begin{column}{.48\linewidth}
+			\includegraphics[height=1.0\textheight]{images/results_room2.pdf}
+		\end{column}
+	\end{columns}
+
+	\note{Bottles detection results in our dataset. As you can see, RRPN's performance is highest.}
 \end{frame}
 
 %-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
@@ -375,12 +460,13 @@ pdfcreator = {}
 	\begin{itemize}
 		\item<1-> \justifying{Built a large-scale dataset for bottle detection in UAV images named UAV-BD.}
 		\item<2-> \justifying{Annotated a huge number of well-distributed bottles with oriented bounding boxes.}
-		\item<3-> \justifying{Establish a benchmark for bottle detection.}
+		\item<3-> \justifying{Established a benchmark for bottle detection.}
 	\end{itemize}
 	\cBlue{Future Work}
 	\begin{itemize}
 		\item<4-> \justifying{We will focus on locating and recycling bottles in the real-world using UAV.}
 	\end{itemize}
+	\note{Our contributions including built a large-scale dataset for bottle detection in UAV images named UAV-BD, annotated a huge number of well-distributed bottles with oriented bounding boxes, established a benchmark for bottle detection. In the future, we will focus on locating and recycling bottles in the real-world using UAV.}
 \end{frame}
 
 %-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
@@ -401,7 +487,7 @@ pdfcreator = {}
 
 	\begin{figure}
 		\centerline{
-			\includegraphics[width=0.1\textwidth]{GitHub-Mark-120px-plus.png}
+			\includegraphics[width=0.1\textwidth]{images/GitHub-Mark-120px-plus.png}
 			\hspace{1.5cm}
 			\includegraphics[width=0.1\textwidth]{images/Google_Drive_Logo.png}
 			}
@@ -409,47 +495,49 @@ pdfcreator = {}
 	\end{figure}
 	
 \end{center}
+	\note{You can download our dataset from Google Drive and download develop kit from Github.}
 \end{frame}
+
+
+%-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+%	FRAME: References
+%-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 
 \begin{frame}{References}
 	\begin{thebibliography}{10}
 	\scriptsize
 	\beamertemplatearticlebibitems
 	\bibitem{dota2018}
-	G.-S. Xia, X. Bai, J. Ding, Z. Zhu, S. Belongie, J. Luo, M. Datcu,
-	M. Pelillo, and L. Zhang
-	\newblock Dota: A large-scale dataset for object
-detection in aerial images
+	Xia G S, Bai X, Ding J, et al.
+	\newblock DOTA: A large-scale dataset for object detection in aerial images
 	\newblock IEEE CVPR, 2018
 
 	\beamertemplatearticlebibitems
 	\bibitem{RRPN}
-	L. Liu, Z. Pan, and B. Lei
-	\newblock Learning a rotation invariant detector with
-rotatable bounding box
-	\newblock arXiv preprint arXiv:1711.09405, 2017
+	Ma J, Shao W, Ye H, et al.
+	\newblock Arbitrary-oriented Scene Text Detection via Rotation Proposals
+	\newblock IEEE Transactions on Multimedia, 2018
 	
 	\beamertemplatearticlebibitems
-	\bibitem{RRPN}
-	L. Liu, Z. Pan, and B. Lei
-	\newblock Faster R-CNN: Towards Real-time
-Object Detection with Region Proposal Networks
-	\newblock Advances in Neural
-Information Processing Systems, 2015
+	\bibitem{FasterRCNN}
+	Ren S, He K, Girshick R, et al.
+	\newblock Faster R-CNN: Towards Real-time Object Detection with Region Proposal Networks
+	\newblock Advances in Neural Information Processing Systems, 2015
 	
 	\beamertemplatearticlebibitems
-	\bibitem{RRPN}
-	L. Liu, Z. Pan, and B. Lei
+	\bibitem{SSD}
+	Liu W, Anguelov D, Erhan D, et al.
 	\newblock SSD: Single Shot Multibox Detector
 	\newblock ECCV, 2016
 	
 	\beamertemplatearticlebibitems
-	\bibitem{RRPN}
-	L. Liu, Z. Pan, and B. Lei
+	\bibitem{YOLO}
+	Redmon J, Farhadi A.
 	\newblock YOLO9000: Better, Faster, Stronger
 	\newblock IEEE CVPR, 2017
 
   \end{thebibliography}
+  \note{There are some references.}
 \end{frame}
 
 %-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=

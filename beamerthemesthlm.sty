@@ -84,8 +84,16 @@
 \RequirePackage{ragged2e}
 \RequirePackage[yyyymmdd]{datetime}
 \RequirePackage{pgfpages}
-\usetikzlibrary{backgrounds}
-\usetikzlibrary{calc}
+\usetikzlibrary{decorations}
+\usetikzlibrary{spy, backgrounds, calc, positioning, shapes, arrows}
+
+\tikzset{
+  center coordinate/.style={
+    execute at end picture={
+      \path ([rotate around={180:#1}]perpendicular cs: horizontal line through={#1},
+                                  vertical line through={(current bounding box.east)})
+            ([rotate around={180:#1}]perpendicular cs: horizontal line through={#1},
+                                  vertical line through={(current bounding box.west)});}}}
 
 %-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 %	COLOR AND FONT THEMES (BEAMER)
