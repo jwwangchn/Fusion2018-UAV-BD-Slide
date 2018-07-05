@@ -37,7 +37,7 @@
 %
 %-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 
-\documentclass[newPxFont, fullfooter, sectionpages, progressbar, displaynote]{beamer}
+\documentclass[newPxFont, fullfooter, sectionpages, progressbar]{beamer}
 \usepackage[utf8]{inputenc}
 %\usepackage{xeCJK}
 \usetheme{sthlm}
@@ -64,7 +64,7 @@
 
 \author{\small Jinwang Wang \and Wei Guo \and Ting Pan \and Huai Yu \and Lin Duan \and \underline{\textbf{Wen Yang}}}
 \institute{Wuhan University, Wuhan, China}
-\date{2018.07.10-2018.07.13 Fusion 2018}
+\date{FUSION 2018 International Conference, Cambridge UK, July 2018}
 \hypersetup{pdfauthor = {jwwangchn: jwwangchn@outlook.com},
 pdfsubject = {Beamer},
 pdfkeywords = {Beamer theme, sthlm},
@@ -81,7 +81,7 @@ pdfcreator = {}
 %-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 
 \maketitle
-\note{Good afternoon, everyone. I am Jinwang Wang from Wuhan University. In the next few minutes, I will introduce our ``Bottle Detection in the Wild Using Low-Altitude Unmanned Aerial Vehicles''.}
+\note{Good afternoon, everyone. I am Jinwang Wang from Wuhan University. In the next few minutes, I will introduce our work ``Bottle Detection in the Wild Using Low-Altitude Unmanned Aerial Vehicles''.}
 
 
 %-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
@@ -110,13 +110,13 @@ pdfcreator = {}
 %-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 
 \begin{frame}[c]{Motivation}
-	It's very \cBlue{dangerous} for the sanitation workers who pick up rubbish on the mountain. Can we help them? Yes!
+	It's very \cBlue{dangerous} for the sanitation workers who pick up the waste bottles on the mountain. Can we help them? Yes!
 	\begin{figure}
 		\centering
 		\only<1>
 		{
 			\includegraphics[height=0.5\textheight]{images/sanitation_worker.png}
-			\caption*{The sanitation workers on the Huashan Mountain.}
+			\caption*{The sanitation workers were collecting the waste bottles at the Huashan Mountain.}
 		}
 		\only<2>{\includegraphics[height=0.6\textheight]{images/illustrater.pdf}}
 	\end{figure}
@@ -124,7 +124,7 @@ pdfcreator = {}
 		\only<2>{\large{\cBlue{UAVs can help them!}}}
 	\end{center}
 
-	\note{As well we know, It's very \cBlue{dangerous} for the sanitation workers who pick up rubbish on the mountain. So can we help them? Yes! We can use UAV to pick bottles.}
+	\note{As we all know, It's very \cBlue{dangerous} for the sanitation workers who pick up bottles on the mountain. So can we help them? Yes! We can use UAV to pick up bottles.}
 \end{frame}
 
 %-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
@@ -144,7 +144,7 @@ pdfcreator = {}
 %-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 
 \begin{frame}[c]{challenges}
-	\only<1-2>{\justifying{In UAV images, the bottles look completely different from the bottles in datasets such as PASCAL VOC, Microsoft COCO, etc.}}
+	\only<1-2>{\justifying{In UAV images, the bottles look completely different from the bottles in datasets such as PASCAL VOC, ImageNet, Microsoft COCO, etc.}}
 	\only<3->{\justifying{As to UAV images, detecting bottles exists several unique challenges.}}
 	\begin{figure}
 		\centering
@@ -163,10 +163,10 @@ pdfcreator = {}
 	
 			\begin{column}{0.6\linewidth}
 				\begin{itemize}
-					\item<3-> \footnotesize{The size is very small, generally less than $50\times 50$ pixels.}
+					\item<3-> \footnotesize{The bottle size in image is very small, generally less than $50\times 50$ pixels.}
 					\item<4-> \footnotesize{Backgrounds are very complex.}
 					\item<5-> \footnotesize{Arbitrary orientations.}
-					\item<6-> \footnotesize{Plastic bottles are often transport, increaseing the difficulty of detection.}
+					\item<6-> \footnotesize{Plastic bottles are often transparent.}
 				\end{itemize}
 			\end{column}
 		\end{columns}
@@ -190,16 +190,16 @@ pdfcreator = {}
 %	FRAME: Dataset
 %-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 \begin{frame}{Dataset}
-	\justifying{To build a baseline for bottle detection in UAV images, we establish a large scale bottle detection dataset, we call \cBlue{UAV-Bottle Dataset(UAV-BD)} and benchmark.}
+	\justifying{To build a baseline for bottle detection in UAV images, we first establish a large scale dataset which called \cBlue{UAV-Bottle Dataset(UAV-BD).}}
 
-	\note{To build a baseline for bottle detection in UAV images, we establish a large scale bottle detection dataset, we call \cBlue{UAV-Bottle Dataset(UAV-BD)} and benchmark.}
+	\note{To build a baseline for bottle detection in UAV images, we establish a large scale bottle detection dataset, we call \cBlue{UAV-Bottle Dataset(UAV-BD)}.}
 \end{frame}
 
 %-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 %	FRAME: Dataset Collection
 %-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 \begin{frame}{Dataset Collection}
-	\justifying{We used \cBlue{DJI Phantom 4 Pro} to collect images. The resolution of the captured images are \cBlue{$5472 \times 3078$ pixels}. At the same time, we follow four key suggestions:}
+	\justifying{We used \cBlue{DJI Phantom 4 Pro} to collect images. The resolution of the captured images are \cBlue{$5472 \times 3078$ pixels}.}
 	\vspace{0.4cm}
 	\begin{columns}
 		\begin{column}{0.48\linewidth}
@@ -225,32 +225,32 @@ pdfcreator = {}
 
 \begin{frame}{Dataset Collection}
 
-	\cBlue{8 background scenes} are chosen and annotated in our UAV-BD:
+	\cBlue{8 different scenes} are chosen and annotated in our UAV-BD:
 
 	\begin{columns}[c]
 		\begin{column}{0.3\textwidth}
 			\begin{itemize}
-			\item \small{Bushforest land}
+			\item \small{Bushes}
 			\item \small{Waste land}
-			\item \small{Step}
-			\item \small{Forest land}
+			\item \small{Steps}
+			\item \small{Mixture}
 			\end{itemize}
 		\end{column}
 
 		\begin{column}{0.3\textwidth}
 			\begin{itemize}
-			\item \small{Flat land}
-			\item \small{Plastic stadium}
-			\item \small{Sand land}
+			\item \small{Cement ground}
+			\item \small{Plastic ground}
+			\item \small{Sands}
 			\item \small{Grassland}
 			\end{itemize}
 		\end{column}
 	\end{columns}
 	\begin{figure}
 		\centering
-		\includegraphics[width=0.9\textwidth]{images/dataset1.jpg}
+		\includegraphics[width=0.9\textwidth]{images/dataset2.png}
 	\end{figure}
-	\note{Eight background scenes are chosen and annotated in our UAV-BD, including Bush forest land, Waste land, Step, Forest land, Flat land, Plastic stadium, Sand land, Grassland.}
+	\note{Eight scenes are chosen and annotated in our UAV-BD, including Bush forest land, Waste land, Step, Forest land, Flat land, Plastic stadium, Sand land, Grassland.}
 \end{frame}
 
 %-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
@@ -258,17 +258,17 @@ pdfcreator = {}
 %-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 
 \begin{frame}{Annotation Method}
-	\justifying{\footnotesize{A common description of horizontal bounding boxes is \cBlue{$(c_x, c_y, h, w)$} , where $(c_x, c_y)$ is the center location, $h$, $w$ are the height and width.}}
+	\justifying{\footnotesize{A common description of horizontal bounding boxes is \cBlue{$(c_x, c_y, h, w)$} , where $(c_x, c_y)$ is the center location, $h$, $w$ are the height and width,respectively.}}
 	\begin{figure}
 		\centering
 		\includegraphics[width=0.6\textwidth]{images/HBB.png}
 	\end{figure}
-	\justifying{\footnotesize{However, horizontal bounding box cannot accurately or compactly outline oriented instances such as the bottles in UAV images. So we use  \cBlue{$(c_x, c_y, h, w, \theta)$} to describe bounding boxes, where $\theta$ is the angle from the horizontal direction of the horizontal bounding box.}}
+	\justifying{\footnotesize{However, horizontal bounding box cannot accurately or compactly outline oriented instances such as the bottles in UAV images. Instead we use  \cBlue{$(c_x, c_y, h, w, \theta)$} to describe bounding boxes, where $\theta$ is the angle from the vertical direction of the main-axis direction of the bottle.}}
 	\begin{figure}
 		\centering
 		\includegraphics[width=0.6\textwidth]{images/OBB.png}
 	\end{figure}
-	\note{A common description of horizontal bounding boxes is \cBlue{$(c_x, c_y, h, w)$} , where $(c_x, c_y)$ is the center location, $h$, $w$ are the height and width. However, horizontal bounding box cannot accurately or compactly outline oriented instances such as the bottles in UAV images. So we use  \cBlue{$(c_x, c_y, h, w, \theta)$} to describe bounding boxes, where $\theta$ is the angle from the horizontal direction of the horizontal bounding box.}
+	\note{A common description of horizontal bounding boxes is \cBlue{$(c_x, c_y, h, w)$} , where $(c_x, c_y)$ is the center location, $h$, $w$ are the height and width. However, horizontal bounding boxes cannot accurately or compactly outline oriented instances such as the bottles in UAV images. Instead, we use  \cBlue{$(c_x, c_y, h, w, \theta)$} to describe bounding boxes, where $\theta$ is the angle from the vertical direction of the main-axis direction of the bottle.}
 \end{frame}
 
 %-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
@@ -276,7 +276,7 @@ pdfcreator = {}
 %-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 
 \begin{frame}{Dataset Statistics}
-	\justifying{\footnotesize{The size of original image(OI) in UAV-BD is \cBlue{$5472\times 3078$ pixels}, they are too large to be trained for CNN-based algorithms. So we segment each OI into $144$ small subimages(SIs), and the size of SIs is \cBlue{$342\times 342$ pixels}. Images and instances number in UAV-BD are shown in the table below.}}
+	\justifying{\footnotesize{The size of each original image(OI) in UAV-BD is \cBlue{$5472\times 3078$ pixels}, it's too large to be trained for CNN-based algorithms. Therefore we segment each OI into $144$ small subimages(SIs), and the size of each SI is \cBlue{$342\times 342$ pixels}. The numbers of images and instances in UAV-BD are shown in the table below.}}
 	\begin{table}
 		\centering
 		\footnotesize
@@ -285,15 +285,15 @@ pdfcreator = {}
 		\begin{tabular}{@{}ccc|cc@{}}
 			\toprule
 			\textbf{Scenes}     & \textbf{OI} & \textbf{SI} & \textbf{Instances in OI} &\textbf{Instances in SI}  \\ \midrule
-			\cBlue{Bushforest land}       & 230  & 4134  & 1812  & 3047  \\
-			\cBlue{Wasteland}     & 379  & 7598  & 4355  & 5800  \\
-			\cBlue{Step}       & 135  & 2691  & 1325  & 2106  \\
-			\cBlue{Forest land}    & 285  & 5724  & 3702  & 4891  \\
-			\cBlue{Flat land}       & 134  & 2803  & 1538  & 2142  \\
-			\cBlue{Plastic stadium} & 336  & 6807  & 4180  & 4998  \\
-			\cBlue{Sand land}       & 249  & 5570  & 2704  & 4008  \\
-			\cBlue{Grassland}       & 456  & 9029  & 5778  & 7787  \\ \midrule
-			\textbf{Total}      & 2204 & 44356 & 25394 & 34779 \\ \bottomrule
+			\cBlue{Bushes} 			& 230  & 4134  & 3047  & 1812 \\
+			\cBlue{Waste land}     	& 379  & 7598  & 5800  & 4355 \\
+			\cBlue{Steps}       	& 135  & 2691  & 2106  & 1325 \\
+			\cBlue{Mixture}    		& 285  & 5724  & 4891  & 3702 \\
+			\cBlue{Cement ground}   & 134  & 2803  & 2142  & 1538 \\
+			\cBlue{Plastic ground} 	& 336  & 6807  & 4998  & 4180 \\
+			\cBlue{Sands}       	& 249  & 5570  & 4008  & 2704 \\
+			\cBlue{Grassland}       & 456  & 9029  & 7787  & 5778 \\ \midrule
+			\textbf{Total}      	& 2204 & 44356 & 34779 & 25394 \\ \bottomrule
 		\end{tabular}
 	\end{table}
 	\note{In our dataset, the size of original image is \cBlue{$5472\times 3078$ pixels}, they are too large to be trained for CNN-based algorithms. So we segment each original image into $144$ small subimages, and the size of subimages is \cBlue{$342\times 342$ pixels}. Images and instances number in UAV-BD are shown in the table below.}
@@ -310,7 +310,7 @@ pdfcreator = {}
 		\end{column}
 
 		\begin{column}{.48\linewidth}
-			\justifying{\cBlue{Angle distribution of UAV-BD.} The angle ranges from $0$ to $180^\circ$. }
+			\justifying{\cBlue{Angle distribution of UAV-BD.} The angle ranges from $0^\circ$ to $180^\circ$. }
 		\end{column}
 	\end{columns}
 	\note{For better training the CNN-based algorithms, we counted some dataset's data distribution. Including angle distribution, ratio distribution, size distribution.}
@@ -327,7 +327,7 @@ pdfcreator = {}
 		\end{column}
 
 		\begin{column}{.48\linewidth}
-			\justifying{\cBlue{Ratio distribution of UAV-BD.} The ratio ranges from $1.0$ to $5.0$. }
+			\justifying{\cBlue{Ratio distribution of UAV-BD.} The aspect ratio ranges from $1.0$ to $5.0$. }
 		\end{column}
 	\end{columns}
 	\note{For better training the CNN-based algorithms, we counted some dataset's data distribution. Including angle distribution, ratio distribution, size distribution.}
@@ -344,7 +344,7 @@ pdfcreator = {}
 		\end{column}
 
 		\begin{column}{.48\linewidth}
-			\justifying{\cBlue{Size distribution of UAV-BD.} The size ranges from $0$ to $4000$. }
+			\justifying{\cBlue{Size distribution of UAV-BD.} The size ranges from $64$ to $4000$ pixels.}
 		\end{column}
 	\end{columns}
 	\note{For better training the CNN-based algorithms, we counted some dataset's data distribution. Including angle distribution, ratio distribution, size distribution.}
@@ -373,8 +373,8 @@ pdfcreator = {}
 %-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 %	FRAME: Dataset Split and Baselines
 %-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-\begin{frame}{Dataset Split}
-	\justifying{We randomly select \cBlue{$64\%$}, \cBlue{$16\%$} and \cBlue{$20\%$} of the UAV-BD as the \cBlue{training}, \cBlue{validation} and \cBlue{testing} data. So the whole UAV-BD contains $16,258$ images with $22,211$ instances for training, $4,055$ images with $5,624$ instances for validation and $5,081$ images with $6,944$ instances for testing.}
+\begin{frame}{Dataset Partition}
+	\justifying{We randomly select \cBlue{$64\%$}, \cBlue{$16\%$} and \cBlue{$20\%$} of the UAV-BD as the \cBlue{training}, \cBlue{validation} and \cBlue{testing} data. The whole UAV-BD contains $16,258$ images with $22,211$ instances for training, $4,055$ images with $5,624$ instances for validation and $5,081$ images with $6,944$ instances for testing.}
 	\note{We randomly select \cBlue{$64\%$}, \cBlue{$16\%$} and \cBlue{$20\%$} of the UAV-BD as the \cBlue{training}, \cBlue{validation} and \cBlue{testing} data. So the whole UAV-BD contains $16,258$ images with $22,211$ instances for training, $4,055$ images with $5,624$ instances for validation and $5,081$ images with $6,944$ instances for testing.}
 \end{frame}
 
@@ -382,7 +382,7 @@ pdfcreator = {}
 %	FRAME: Baselines with Horizontal Bounding Boxes
 %-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 \begin{frame}{Baselines with Horizontal Bounding Boxes(HBB)}
-	\justifying{We select \cBlue{Faster R-CNN}, \cBlue{SSD}, \cBlue{YOLOv2} as our baseline for horizontal object detection. The experimental results of HBB prediction are shown in figure below.}
+	\justifying{We select \cBlue{Faster R-CNN\cite{FasterRCNN}}, \cBlue{SSD\cite{SSD}}, \cBlue{YOLOv2\cite{YOLO}} as baselines for bottle detection with horizontal bounding box. The experimental results of HBB prediction are shown in figure below.}
 	\begin{figure}
 		\centering
 		\includegraphics[width=0.6\textwidth]{images/pr_bbox.pdf}
@@ -393,8 +393,8 @@ pdfcreator = {}
 %-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 %	FRAME: Baseline with Oriented Bounding Boxes
 %-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-\begin{frame}{Baseline with Oriented Bounding Boxes(OBB)}
-	\justifying{\footnotesize{For oriented object detection, wo modify the original \cBlue{Rotation Region Proposal Network(RRPN)} algorithm to predict properly oriented bounding boxes. RRPN's network structure is shown in figure below.}}
+\begin{frame}{Baselines with Oriented Bounding Boxes(OBB)}
+	\justifying{\footnotesize{For oriented object detection, we employ the \cBlue{Rotation Region Proposal Network(RRPN)\cite{RRPN}} algorithm to predict properly oriented bounding boxes. The RRPN's network structure is shown in figure below.}}
 
 	\begin{figure}
 		\centering
@@ -459,12 +459,11 @@ pdfcreator = {}
 	\cBlue{Contribution}
 	\begin{itemize}
 		\item<1-> \justifying{Built a large-scale dataset for bottle detection in UAV images named UAV-BD.}
-		\item<2-> \justifying{Annotated a huge number of well-distributed bottles with oriented bounding boxes.}
-		\item<3-> \justifying{Established a benchmark for bottle detection.}
+		\item<2-> \justifying{Established a benchmark for bottle detection in UAV images.}
 	\end{itemize}
 	\cBlue{Future Work}
 	\begin{itemize}
-		\item<4-> \justifying{We will focus on locating and recycling bottles in the real-world using UAV.}
+		\item<4-> \justifying{Locating and recycling bottles in the real-world using UAVs.}
 	\end{itemize}
 	\note{Our contributions including built a large-scale dataset for bottle detection in UAV images named UAV-BD, annotated a huge number of well-distributed bottles with oriented bounding boxes, established a benchmark for bottle detection. In the future, we will focus on locating and recycling bottles in the real-world using UAV.}
 \end{frame}
@@ -475,7 +474,7 @@ pdfcreator = {}
 
 \begin{frame}[c]{Get UAV-Bottle Dataset}
 	\vspace{10mm}
-	UAV-Bottle Dataset and Development Kit can be downloaded on Google Drive and Github. \\
+	UAV-Bottle Dataset and Development Kit can be downloaded on the Webpage and Github. \\
 \vspace{1em}
 \begin{center}
 	\large{UAV-Bottle Dataset}
@@ -506,17 +505,7 @@ pdfcreator = {}
 \begin{frame}{References}
 	\begin{thebibliography}{10}
 	\scriptsize
-	\beamertemplatearticlebibitems
-	\bibitem{dota2018}
-	Xia G S, Bai X, Ding J, et al.
-	\newblock DOTA: A large-scale dataset for object detection in aerial images
-	\newblock IEEE CVPR, 2018
-
-	\beamertemplatearticlebibitems
-	\bibitem{RRPN}
-	Ma J, Shao W, Ye H, et al.
-	\newblock Arbitrary-oriented Scene Text Detection via Rotation Proposals
-	\newblock IEEE Transactions on Multimedia, 2018
+	
 	
 	\beamertemplatearticlebibitems
 	\bibitem{FasterRCNN}
@@ -536,6 +525,20 @@ pdfcreator = {}
 	\newblock YOLO9000: Better, Faster, Stronger
 	\newblock IEEE CVPR, 2017
 
+	\beamertemplatearticlebibitems
+	\bibitem{RRPN}
+	Ma J, Shao W, Ye H, et al.
+	\newblock Arbitrary-oriented Scene Text Detection via Rotation Proposals
+	\newblock IEEE Transactions on Multimedia, 2018
+	
+
+	\beamertemplatearticlebibitems
+	\bibitem{dota2018}
+	Xia G S, Bai X, Ding J, et al.
+	\newblock DOTA: A large-scale dataset for object detection in aerial images
+	\newblock IEEE CVPR, 2018
+	
+	
   \end{thebibliography}
   \note{There are some references.}
 \end{frame}
@@ -547,7 +550,7 @@ pdfcreator = {}
 \setbeamercolor{background canvas}{bg=\cnDarkGrey}
 \begin{frame}[plain]
 \vspace{1.4cm}
-\centering{\cGrey{\Huge{Thanks!}}}
+\centering{\cGrey{\Huge{Comments and Questions!}}}
 
 \end{frame}
 \endgroup
