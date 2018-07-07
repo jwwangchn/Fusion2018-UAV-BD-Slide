@@ -81,7 +81,7 @@ pdfcreator = {}
 %-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 
 \maketitle
-\note{Good afternoon, everyone. I am Jinwang Wang from Wuhan University. In the next few minutes, I will introduce our work ``Bottle Detection in the Wild Using Low-Altitude Unmanned Aerial Vehicles''.}
+\note{Good morning, everyone. I am Jinwang Wang from Wuhan University. In the next few minutes, I will introduce our work ``Bottle Detection in the Wild Using Low-Altitude Unmanned Aerial Vehicles''.}
 
 
 %-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
@@ -124,7 +124,7 @@ pdfcreator = {}
 		\only<2>{\large{\cBlue{UAVs can help them!}}}
 	\end{center}
 
-	\note{As we all know, It's very \cBlue{dangerous} for the sanitation workers who pick up bottles on the mountain. So can we help them? Yes! We can use UAV to pick up bottles.}
+	\note{As we all know, It's very \cBlue{dangerous} for the sanitation workers who pick up the waste bottles on the mountain. This image shows that the sanitation workers were collecting the waste bottles at the Huanshan Mountain. So can we help them? Yes! We can use UAV to pick up bottles.}
 \end{frame}
 
 %-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
@@ -136,7 +136,7 @@ pdfcreator = {}
 		\centering
 		\includegraphics[height=0.85\textheight]{images/pipeline.pdf}
 	\end{figure}
-	\note{This work mainly focuses on bottles detection. The whole pipeline is shown as below. After bottles detection, bottles location, grab bottles and recycle is going on.}
+	\note{This work mainly focuses on bottles detection. The whole pipeline is shown as below. After detecting bottles, locating bottles, grabbing bottles and recycling bottles is ongoing. }
 \end{frame}
 
 %-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
@@ -174,9 +174,17 @@ pdfcreator = {}
 	}
 	
 	
-	\only<1>{\note{In order to detect bottles on UAV, a high quality bottle dataset is needed for training deep learning based detection models. There are exactly bottles in the PASCAL VOC, Microsoft COCO, etc. datasets, why don't we use these bottles to training models?}}
+	\only<1>{\note{In order to detect bottles on UAV, a high quality bottle dataset is needed for training deep learning based detection models. There are exactly bottles in the PASCAL VOC, ImageNet, Microsoft COCO, etc. datasets, why don't we use these bottles to training models?}}
 
-	\only<2>{\note{Because in UAV images, the bottles look completely different from the bottles in PASCAL VOC etc. datasets. As to UAV image, as you can see, detecting bottles exists several unique challenges. First, bottles are very small, generally less than $50\times 50$ pixels; Second, the backgrounds of the bottles are very complex. Third, in contrast to conventional object detection dataset, the bottles in UAV images often appear with arbitrary orientations. Fourth, plastic bottles are often transparent, thus the background will can be seen through the bottles.}}
+	\only<2>{\note{Because in UAV images, the bottles look completely different from the bottles in PASCAL VOC etc. datasets. As to UAV image, as you can see, detecting bottles exists several unique challenges. }}
+
+	\only<3->{\note{First, the bottle size in image is very small, generally less than $50\times 50$ pixels;
+	
+	Second, the backgrounds are very complex. 
+	
+	Third, in contrast to conventional object detection dataset, the bottles in UAV images often appear with arbitrary orientations. 
+	
+	Fourth, plastic bottles are often transparent, thus the background will can be seen through the bottles.}}
 \end{frame}
 
 %-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
@@ -190,9 +198,9 @@ pdfcreator = {}
 %	FRAME: Dataset
 %-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 \begin{frame}{Dataset}
-	\justifying{To build a baseline for bottle detection in UAV images, we first establish a large scale dataset which called \cBlue{UAV-Bottle Dataset(UAV-BD).}}
+	\justifying{To build a baseline for bottle detection in UAV images, we first established a large scale dataset which called \cBlue{UAV-Bottle Dataset(UAV-BD).}}
 
-	\note{To build a baseline for bottle detection in UAV images, we establish a large scale bottle detection dataset, we call \cBlue{UAV-Bottle Dataset(UAV-BD)}.}
+	\note{To build a baseline for bottle detection in UAV images, we established a large scale bottle detection dataset, we call \cBlue{UAV-Bottle Dataset(UAV-BD)}.}
 \end{frame}
 
 %-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
@@ -208,15 +216,15 @@ pdfcreator = {}
 
 		\begin{column}{0.48\linewidth}
 			\begin{itemize}
-				\item<1-> \small{Wide range of scale and aspect ratios.}
+				\item<1-> \small{A wide range of scales and aspect ratios.}
 				\item<2-> \small{Different backgrounds.}
-				\item<3-> \small{Different orientation.}
+				\item<3-> \small{Different orientations.}
 				\item<4-> \small{As many types of bottles as possible.}
 			\end{itemize}
 		\end{column}
 	\end{columns}
 
-	\note{We use DJI Phantom 4 Pro to collect images. The resolution of the captured images are \cBlue{$5472 \times 3078$ pixels}. At the same time, we follow four key suggestions. First, collecting images including bottles a wide range of scale and aspect ratio. Second, collecting images including different backgrounds. Third, collecting images including bottles different orientations. Third, collecting as many types of bottles as possible.}
+	\note{We use DJI Phantom 4 Pro to collect images. The resolution of the captured images are \cBlue{$5472 \times 3078$ pixels}. At the same time, we follow four key suggestions. First, collecting images including bottles a wide range of scale and aspect ratio. Second, collecting images including different backgrounds. Third, collecting images including bottles different orientations. Fourth, collecting as many types of bottles as possible.}
 \end{frame}
 
 %-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
@@ -250,7 +258,7 @@ pdfcreator = {}
 		\centering
 		\includegraphics[width=0.9\textwidth]{images/dataset2.png}
 	\end{figure}
-	\note{Eight scenes are chosen and annotated in our UAV-BD, including Bush forest land, Waste land, Step, Forest land, Flat land, Plastic stadium, Sand land, Grassland.}
+	\note{Eight scenes are chosen and annotated in our UAV-BD, including Bushes, Waste land, Steps, Mixture, Cement ground, Plastic ground, Sands, Grassland.}
 \end{frame}
 
 %-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
@@ -276,7 +284,7 @@ pdfcreator = {}
 %-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 
 \begin{frame}{Dataset Statistics}
-	\justifying{\footnotesize{The size of each original image(OI) in UAV-BD is \cBlue{$5472\times 3078$ pixels}, it's too large to be trained for CNN-based algorithms. Therefore we segment each OI into $144$ small subimages(SIs), and the size of each SI is \cBlue{$342\times 342$ pixels}. The numbers of images and instances in UAV-BD are shown in the table below.}}
+	\justifying{\footnotesize{The size of each original image(OI) in UAV-BD is \cBlue{$5472\times 3078$ pixels}, it's too large to be trained for CNN-based algorithms. Therefore we segment each OI into $144$ small subimages(SIs), and the size of each SI is \cBlue{$342\times 342$ pixels}. The number of images and instances in UAV-BD are shown in the table below.}}
 	\begin{table}
 		\centering
 		\footnotesize
@@ -552,6 +560,7 @@ pdfcreator = {}
 \vspace{1.4cm}
 \centering{\cGrey{\Huge{Comments and Questions!}}}
 
+\note{Welcome to make comments and ask Questions}
 \end{frame}
 \endgroup
 
