@@ -19,37 +19,36 @@
     \path [linepart] (#2) -- (#1.east);}
 
 \begin{document}
-\noindent
-\begin{tikzpicture}
-\node [anchor=west] (RCNN) at (-2.5, 21) {\Large Faster RCNN};
-\node [anchor=west] (SSD) at (-2.5, 15) {\Large SSD};
-\node [anchor=west] (YOLOv2) at (-2.5, 9) {\Large YOLOv2};
-\node [anchor=west] (RRPN) at (-2.5, 3) {\Large RRPN};
+    \noindent
+    \begin{tikzpicture}
+        outer/.style={draw=gray,dashed,fill=green!1,thick,inner sep=5pt}
+        \node [anchor=west] (RCNN) at (-2.5, 21) {\Large Faster RCNN};
+        \node [anchor=west] (SSD) at (-2.5, 15) {\Large SSD};
+        \node [anchor=west] (YOLOv2) at (-2.5, 9) {\Large YOLOv2};
+        \node [anchor=west] (RRPN) at (-2.5, 3) {\Large RRPN};
 
 
 
-\begin{scope}[xshift=1.5cm]
-    \node[anchor=south west,inner sep=0] (image) at (0,0) {\includegraphics[width=0.5\textwidth]{results/result1.png}};
+        \begin{scope}[xshift=1.5cm]
+            \node[anchor=south west,inner sep=0] (image) at (0,0) {\includegraphics[width=0.5\textwidth]{results/result3.png}};
 
-    \begin{scope}[x={(image.south east)},y={(image.north west)}]
-        \draw [-stealth, line width=5pt, cyan] (RCNN) -- ++(0.4,0.0);
-        \draw [-stealth, line width=5pt, cyan] (SSD) -- ++(0.565,0.0);
-        \draw [-stealth, line width=5pt, cyan] (YOLOv2) -- ++(0.48,0.0);
-        \draw [-stealth, line width=5pt, cyan] (RRPN) -- ++(0.52,0.0);
-    \end{scope}
-\end{scope}
+            \begin{scope}[x={(image.south east)},y={(image.north west)}]
+                \draw [-stealth, line width=5pt, cyan] (RCNN) -- ++(0.4,0.0);
+                \draw [-stealth, line width=5pt, cyan] (SSD) -- ++(0.565,0.0);
+                \draw [-stealth, line width=5pt, cyan] (YOLOv2) -- ++(0.48,0.0);
+                \draw [-stealth, line width=5pt, cyan] (RRPN) -- ++(0.52,0.0);
+            \end{scope}
+        \end{scope}
 
-\draw[line width=3pt, blue] (6, 25.5) rectangle (7.5, 23.5);
-\draw[line width=3pt, blue] (6, 19.3) rectangle (7.5, 17.3);
-\draw[line width=3pt, blue] (6, 13.2) rectangle (7.5, 11.2);
-\draw[line width=3pt, blue] (6, 7) rectangle (7.5, 5);
+        % \draw[line width=3pt, blue, dashed] (6, 25.5) rectangle (7.5, 23.5);
+        % \draw[line width=3pt, blue, dashed] (6, 19.3) rectangle (7.5, 17.3);
+        % \draw[line width=3pt, blue, dashed] (6, 13.2) rectangle (7.5, 11.2);
+        % \draw[line width=3pt, blue, dashed] (6, 7) rectangle (7.5, 5);
 
-\draw[line width=3pt, blue] (4.5, 19) rectangle (6, 21);
-\draw[line width=3pt, blue] (4.5, 13) rectangle (6, 15);
-\draw[line width=3pt, blue] (4.5, 6.8) rectangle (6, 8.8);
-\draw[line width=3pt, blue] (4.5, 1) rectangle (6, 3);
+        \draw[line width=3pt, blue, dashed] (1, 22.5) rectangle (2.5, 24.5);
+        \draw[line width=3pt, blue, dashed] (1, 16.3) rectangle (2.5, 18.3);
+        \draw[line width=3pt, blue, dashed] (1, 10.2) rectangle (2.5, 12.2);
+        \draw[line width=3pt, blue, dashed] (1, 4.1) rectangle (2.5, 6.1);
 
-\end{tikzpicture}%
+    \end{tikzpicture}%
 \end{document}
-
-
